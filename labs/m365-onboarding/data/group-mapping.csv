@@ -1,0 +1,8 @@
+Department,GroupName,AccessPurpose
+People,M365-People,Department Microsoft 365 group
+People,Teams-People,Department Teams access
+Sales,M365-Sales,Department Microsoft 365 group
+Sales,Teams-Sales,Department Teams access
+Sales,CRM-Users,CRM application access
+VPN,VPN-Standard-Users,Remote access VPN
+

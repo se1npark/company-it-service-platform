@@ -1,0 +1,4 @@
+FirstName,LastName,DisplayName,UserPrincipalName,Department,JobTitle,ManagerEmail,Location,StartDate,RequiresVpn,RequiresLaptop
+Sofia,Martin,Sofia Martin,sofia.martin@northstar.example,People,HR Coordinator,grace.lee@northstar.example,Brisbane,2026-05-18,true,true
+Lucas,Nguyen,Lucas Nguyen,lucas.nguyen@northstar.example,Sales,Account Executive,ava.patel@northstar.example,Melbourne,2026-05-25,true,true
+

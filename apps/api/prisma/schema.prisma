@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id
+  fullName         String
+  email            String   @unique
+  department       String
+  role             String
+  managerName      String?
+  location         String
+  onboardingStatus String
+  tickets          Ticket[] @relation("RequesterTickets")
+  assignedTickets  Ticket[] @relation("AgentTickets")
+  assets           Asset[]
+}
+
+model Asset {
+  id             String   @id
+  assetTag       String   @unique
+  type           String
+  model          String
+  status         String
+  warrantyExpiry DateTime
+  operatingSystem String?
+  assignedUserId String?
+  assignedUser   User?    @relation(fields: [assignedUserId], references: [id])
+  tickets        Ticket[]
+}
+
+model Ticket {
+  id              String          @id
+  title           String
+  description     String
+  category        String
+  priority        String
+  status          String
+  requesterId     String
+  requester       User            @relation("RequesterTickets", fields: [requesterId], references: [id])
+  assignedAgentId String?
+  assignedAgent   User?           @relation("AgentTickets", fields: [assignedAgentId], references: [id])
+  assetId         String?
+  asset           Asset?          @relation(fields: [assetId], references: [id])
+  createdAt       DateTime
+  updatedAt       DateTime
+  slaDueAt        DateTime
+  comments        TicketComment[]
+  auditLogs       AuditLog[]
+}
+
+model TicketComment {
+  id         String   @id
+  ticketId   String
+  ticket     Ticket   @relation(fields: [ticketId], references: [id])
+  authorName String
+  body       String
+  createdAt  DateTime
+}
+
+model KnowledgeArticle {
+  id        String @id
+  slug      String @unique
+  title     String
+  category  String
+  summary   String
+  content   String
+  tags      String[]
+}
+
+model AuditLog {
+  id         String   @id
+  entityType String
+  entityId   String
+  action     String
+  actorName  String
+  createdAt  DateTime
+  ticketId   String?
+  ticket     Ticket?  @relation(fields: [ticketId], references: [id])
+}
+
